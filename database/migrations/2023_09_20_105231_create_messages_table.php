@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("recruit_id");
             $table->unsignedBigInteger("user_id");
             $table->string("message");
             $table->timestamps();
             
             //外部キー制約
+            $table->foreign('recruit_id')->references('id')->on('recruits');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -33,7 +35,7 @@ return new class extends Migration
     {
         Schema::table('messages', function (Blueprint $table) {
             //外部キー制約削除
-            $table->dropForeign(['user_id']);
+            $table->dropForeign(['user_id','recruit_id']);
             
             $table->dropIfExists('messages');
         });

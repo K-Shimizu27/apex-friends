@@ -14,13 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            // $table->id();
-            $table->string("icon");
-            // $table->string("name");
-            // $table->string("email");
-            // $table->string("password");
-            $table->boolean("profile_flag");
-            // $table->timestamps();
+            $table->string("icon")->nullable();
+            $table->boolean("profile_flag")->default(0);
         });
     }
 

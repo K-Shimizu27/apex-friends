@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('recruits', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("user_id");
+            $table->unsignedBigInteger("user_id")->unique();
             $table->string("title");
             $table->string("mode");
             $table->boolean("cross_play");

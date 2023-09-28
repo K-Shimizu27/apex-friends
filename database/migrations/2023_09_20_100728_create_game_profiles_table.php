@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('game_profiles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("user_id");
+            $table->unsignedBigInteger("user_id")->unique();
             $table->string("game_id");
             $table->string("rank");
             $table->double("kd",2);
             $table->integer("damage");
-            $table->integer("platform");
+            $table->string("platform");
             $table->string("character");
             $table->timestamps();
             

@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use DB;
+use Illuminate\Support\Facades\Auth;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -41,4 +44,45 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    /**
+     * このユーザが所有する募集
+     */
+    public function recruit()
+    {
+        return $this->hasOne(Recruit::class);
+    }
+    
+    /**
+     * このユーザのゲームプロフィール
+     */
+    public function gameprofile()
+    {
+        return $this->hasOne(GameProfile::class);
+    }
+    
+    /**
+     * このユーザのメッセージ(一対多)
+     */
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+    
+    /**
+     * このユーザのプロフィール入力フラグを更新
+     */
+    public function update_flag()
+    {
+        DB::table('users')
+            ->where('id', Auth::user()->id)
+            ->update(['profile_flag' => '1']);
+        
+        return;
+    }
+    
+    public function loadRelationshipCounts()
+    {
+        $this->loadCount('recruit');
+    }
 }
