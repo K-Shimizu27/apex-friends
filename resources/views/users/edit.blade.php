@@ -19,7 +19,7 @@
                 @csrf
                 {{-- アイコン設定 --}}
                 <div class="form-control my-4">
-                    <img src="/storage/{{$user->icon}}" alt="icon" width="10%"/>
+                    <img src="{{ \Storage::url($user->icon) }}" alt="icon" width="10%"/>
                     <input type="file" name="icon" class="file-input file-input-bordered w-full max-w-xs" accept="image/*" />
                 </div>
                 

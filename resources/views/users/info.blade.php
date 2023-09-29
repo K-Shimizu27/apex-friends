@@ -23,7 +23,7 @@
                     <th>アイコン：</th>
                     <td>
                         <div class="avatar w-28">
-                            <img src="/storage/{{$user->icon}}" alt="icon"/>
+                            <img src="{{\Storage::url($user->icon)}}" alt="icon"/>
                         </div>
                     </td>
                 </tr>

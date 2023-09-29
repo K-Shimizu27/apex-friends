@@ -15,7 +15,7 @@
         <?php $user = $recruit->user(); ?>
         <div class=" justify-items-start">
             <div class="avatar w-14">
-                <img src="/storage/{{$user->icon}}" alt="icon" />
+                <img src="{{ \Storage::url($user->icon) }}" alt="icon" />
             </div>
             <a class="link link-hover link-primary" href="{{route('users.show',$recruit->user_id);}}">{{$user->name}}さん</a>
         </div>

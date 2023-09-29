@@ -19,7 +19,7 @@
             <tr>
                 <th>
                     <div class="avatar w-14">
-                        <img src="/storage/{{$user->icon}}" alt="icon"/>
+                        <img src="{{ \Storage::url($user->icon) }}" alt="icon"/>
                     </div>
                 </th>
                 <td>ユーザ名：{{$user->name}}</td>

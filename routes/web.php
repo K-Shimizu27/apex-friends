@@ -44,16 +44,17 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('gameprofiles',GameProfilesController::class, ['only' => ['index','store','show','edit','create']]);
     Route::resource('messages',MessagesController::class,['only' => ['index','store','destroy','show']])->middleware(['profileflag']);
     
-    Route::group(['prefix' => 'users/{user}'], function () {
+    Route::group(['prefix' => 'users/{id}'], function () {
         Route::get('gameprofile', [UsersController::class, 'gameprofile'])->name('users.gameprofile');
         Route::get('info', [UsersController::class, 'info'])->name('users.info')->middleware(['profileflag']);
         Route::get('recruit', [UsersController::class, 'recruit'])->name('users.recruit')->middleware(['profileflag']);
         Route::post('edit',[UsersController::class,"update"])->name('users.update')->middleware(['profileflag']);
     });
 
-    Route::post('gameprofiles/{gameprofile}/edit',[GameProfilesController::class,"update"])->name('gameprofiles.update');
-    Route::post('messages/{message}',[MessagesController::class,"store"])->name('messages.store')->middleware(['profileflag']);
+    Route::post('gameprofiles/{id}/edit',[GameProfilesController::class,"update"])->name('gameprofiles.update');
+    Route::post('messages/{id}',[MessagesController::class,"store"])->name('messages.store')->middleware(['profileflag']);
     // Route::group(['prefix' => 'recruits/{id}'], function () {
         
     // });
+
 }); 

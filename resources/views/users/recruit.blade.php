@@ -20,7 +20,9 @@
         {{-- 募集があるか判定 --}}
         @if ($user->recruit()->first() == null)
             {{-- 募集がないとき --}}
-            <h2 class="text-white">現在募集していません。</h2>
+            <div class="prose mx-auto text-center my-4">
+                <h2 class="text-white">現在募集していません。</h2>
+            </div>
         @else
             {{-- 募集があるとき --}}
             <?php $recruit = $user->recruit()->first(); ?>

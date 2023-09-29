@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -25,19 +26,27 @@ class UsersController extends Controller
         //ユーザのゲームプロフィールを取得
         $gameprofile = $user->gameprofile()->first();
         
+        $filepath = Storage::url($user->icon);
+        
         // ユーザ詳細ビューで表示
         return view('users.show', [
             'user' => $user,
             'gameprofile' => $gameprofile,
+            'filepath' => $filepath,
         ]); 
     }
     
     public function edit($id)
     {
+        if(Auth::user()->id != $id)
+        {
+            return redirect("/");
+        }
+        
         // idの値でメッセージを検索して取得
-        $user = Auth::user();
+        $user = User::findOrFail($id);
 
-        // メッセージ編集ビューでそれを表示
+        // 編集ビューでそれを表示
         return view('users.edit', [
             'user' => $user,
         ]);
@@ -45,6 +54,11 @@ class UsersController extends Controller
     
     public function update(Request $request, $id)
     {
+        if(Auth::user()->id != $id)
+        {
+            return redirect("/");
+        }
+        
         // バリデーション
         $request->validate([
             'name' => 'required|string|max:255',
@@ -55,16 +69,18 @@ class UsersController extends Controller
         //idでユーザを検索して取得
         $user = User::findOrFail($id);
         
-        $icon = $request->icon;
+        $icon = $request->file('icon');
         
         //
         if($icon != null){
-            \Storage::disk('public')->delete($user->icon);
-            $filePath = $icon->store('public');
-            $user->icon = str_replace('public/', '', $filePath);
-            $user->save();
+            if($user->icon != null){
+                \Storage::disk('public')->delete($user->icon);
+            }
+            
+            $filePath = \Storage::putFile('public', $icon);
+            $user->icon = $filePath;
+            // $user->save();
         }
-        
         // データを更新
         $user->name = $request->name;
         $user->email = $request->email;
@@ -78,6 +94,10 @@ class UsersController extends Controller
     
     public function info($id)
     {
+        if(Auth::user()->id != $id)
+        {
+            return redirect("/");
+        }
         //idでユーザを検索して取得
         $user = User::findOrFail($id);
         
@@ -88,6 +108,10 @@ class UsersController extends Controller
     
     public function gameprofile($id)
     {
+        if(Auth::user()->id != $id)
+        {
+            return redirect("/");
+        }
         //idでユーザを検索して取得
         $user = User::findOrFail($id);
         
@@ -102,6 +126,10 @@ class UsersController extends Controller
     
     public function recruit($id)
     {
+        if(Auth::user()->id != $id)
+        {
+            return redirect("/");
+        }
         //idでユーザを検索して取得
         $user = User::findOrFail($id);
         

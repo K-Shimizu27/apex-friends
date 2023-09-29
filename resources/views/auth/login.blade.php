@@ -6,21 +6,29 @@
         <h1 id="title">ApexFriends</h1>
     </div>
     <div class="flex justify-center my-4">
-            <form method="POST" action="{{ route('login') }}" class="w-1/2">
+            <form method="POST" action="{{ route('login') }}" id="body">
                 @csrf
-                <div class="form-control my-4">
-                    <label for="email" class="label ">
-                        <span class="label-text text-white">メールアドレス：</span>
-                    </label>
-                    <input type="email" name="email" class="input input-bordered w-full text-black">
+                <div class="form-control ">
+                    <table class="my-4">
+                        
+                        <tr>
+                            <th>
+                                <label for="email" class="label">メールアドレス：</label>
+                            </th>
+                            <td>
+                                <input type="email" name="email" class="input input-bordered w-full text-black">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <label for="password" class="label">パスワード：</label>
+                            </th>
+                            <td>
+                                <input type="password" name="password" class="input input-bordered w-full text-black">
+                            </td>
+                        </tr>
+                    </table>
                 </div>
-                <div class="form-control my-4">
-                    <label for="password" class="label">
-                        <span class="label-text text-white">パスワード：</span>
-                    </label>
-                    <input type="password" name="password" class="input input-bordered w-full text-black">
-                </div>
-     
                 <button type="submit" class="btn btn-error bg-red-600 btn-block normal-case w-full">ログイン</button>
     
                 {{-- ユーザ登録ページへのリンク --}}

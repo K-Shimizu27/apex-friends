@@ -14,7 +14,7 @@
         {{-- ナビゲーションバー --}}
         @include('commons.navbar')
 
-        <div class="container">
+        <div class="container min-h-full min-w-full">
             {{-- エラーメッセージ --}}
             @include('commons.error_messages')
 
